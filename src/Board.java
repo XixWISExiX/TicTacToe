@@ -20,18 +20,28 @@ public class Board {
 //		
 		
 		boardValues = new char[9];
-		board = {{' ', ' '. ' ', '|', ' ', ' '. ' ', '|', ' ', ' '. ' '},
-				{'-', '-'. '-', '+', '-', '-'. '-', '+', '-', '-'. '-'},
-				{' ', ' '. ' ', '|', ' ', ' '. ' ', '|', ' ', ' '. ' '},
-				{'-', '-'. '-', '+', '-', '-'. '-', '+', '-', '-'. '-'},
-				{' ', ' '. ' ', '|', ' ', ' '. ' ', '|', ' ', ' '. ' '}};
+		char[][] boardHolder = { {' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' '},
+				  {'-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-'},
+				  {' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' '},
+				  {'-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-'},
+				  {' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' '} };
+		board = boardHolder;
 	}
 	
 	public String toString() {
 //		for(int i = 0; i < board.length; ++i) {
 //			System.out.println(board[i]);
 //		}
-		System.out.println(Arrays.toString(board));
+//		return Arrays.deepToString(board);
+		
+		String table = "";
+		for(int i = 0; i < board.length; ++i) {
+			for(int k = 0; k < board[0].length; ++k) {
+				table += board[i][k];
+			}
+			table += System.lineSeparator();
+		}
+		return table;
 	}
 	
 }
