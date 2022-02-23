@@ -9,6 +9,7 @@ public class Driver {
 		Scanner scnr = new Scanner(System.in);
 		String brake = "";
 		HashMap<Integer, Integer> values = new HashMap<Integer, Integer>();
+		boolean allFill = false;
 		boolean gameEnd = false;
 		char player = '0';
 		int pos;
@@ -30,7 +31,7 @@ public class Driver {
 			cpu = 'x';
 		}
 		// Main loop for user interface
-		while(!brake.equals("exit")) {
+		while(!brake.equals("no")) {
 			
 			// Game Portion (clarify position numbers)
 			while(!gameEnd) {
@@ -64,8 +65,17 @@ public class Driver {
 					}
 				}
 				
-				// TODO see if game is over
+				// TODO needs to check draw and ending needs work
+				allFill = board.checkIfDraw();
+				gameEnd = board.checkGame(player, allFill);
+				if(gameEnd) {
+					System.out.println("Do you want to play another game? (enter yes or no)\n");
+					brake = scnr.next();
+					
+				}
+				
 			}
 		}
+		System.out.println("Ok, hopefully you had fun!");
 	}
 }

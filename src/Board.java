@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Board {
 	private char[] boardPos;
@@ -35,6 +36,57 @@ public class Board {
 			case 9: board[4][9] = player;
 				break;
 		}
+	}
+	
+	public boolean checkWinner(char player) {
+		
+		// Check diagonals
+		if(board[0][1] == player && board[2][5] == player && board[4][9] == player) {
+			return true;
+		}
+		if(board[0][9] == player && board[2][5] == player && board[4][1] == player) {
+			return true;
+		}
+		// Check across
+		for(int i = 0; i < 5; i += 2) {
+			if(board[i][1] == player && board[i][5] == player && board[i][9] == player) {
+				return true;
+			}
+		}
+		// Check vertical
+		for(int i = 1; i < 11; i += 4) {
+			if(board[0][i] == player && board[2][i] == player && board[4][i] == player) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean checkGame(char player, boolean allFill) {
+		if(Character.compare(player, 'x') == 0 && checkWinner('x')) {
+			System.out.println("x Wins!\n");
+			return true;
+		}
+		if(Character.compare(player, 'o') == 0 && checkWinner('o')) {
+			System.out.println("o Wins!\n");
+			return true;
+		}
+		if(allFill) {
+			System.out.println("Draw\n");
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean checkIfDraw() {
+		if(Character.compare(board[0][1], ' ') != 0 && Character.compare(board[0][5], ' ') != 0 && Character.compare(board[0][9], ' ') != 0
+				&& Character.compare(board[2][1], ' ') != 0 && Character.compare(board[2][5], ' ') != 0
+				&& Character.compare(board[2][9], ' ') != 0 && Character.compare(board[4][1], ' ') != 0
+				&& Character.compare(board[4][5], ' ') != 0 && Character.compare(board[4][9], ' ') != 0
+				) {
+			return true;
+		}
+		return false;
 	}
 	
 	public String toString() {
