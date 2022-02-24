@@ -1,3 +1,9 @@
+/**
+ *  This is tic tac toe, a game which you can play
+ *  
+ *  @author Joshua Wiseman
+ *  @version 1.0
+ */
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -53,9 +59,11 @@ public class Driver {
 						System.out.println("That is not a valid position\n");
 					}
 				}
+				allFill = board.checkIfDraw();
+				
 				// Run & change cpu position
 				cpuPos = pos;
-				while(true) {
+				while(true && !allFill) {
 					cpuPos = (int) Math.floor((Math.random() * 9) + 1);
 					if(cpuPos != pos && !values.containsValue(cpuPos)) {
 						board.boardChanger(cpuPos, cpu);
@@ -66,16 +74,19 @@ public class Driver {
 				}
 				
 				// TODO needs to check draw and ending needs work
-				allFill = board.checkIfDraw();
 				gameEnd = board.checkGame(player, allFill);
 				if(gameEnd) {
+					System.out.println("\n" + board + "\n");
 					System.out.println("Do you want to play another game? (enter yes or no)\n");
-					brake = scnr.next();
-					
+					brake = scnr.next();	
+					// Doesn't work with all strings
+					if(!brake.equals("no")) {
+						board.wipe();
+						gameEnd = false;
+					}
 				}
-				
 			}
 		}
-		System.out.println("Ok, hopefully you had fun!");
+		System.out.println("\nOk, hopefully you had fun!");
 	}
 }

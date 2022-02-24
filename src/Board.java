@@ -38,6 +38,7 @@ public class Board {
 		}
 	}
 	
+	// Checks for a winner
 	public boolean checkWinner(char player) {
 		
 		// Check diagonals
@@ -62,22 +63,24 @@ public class Board {
 		return false;
 	}
 	
+	// Determines if there is a winner and if the game is a draw
 	public boolean checkGame(char player, boolean allFill) {
 		if(Character.compare(player, 'x') == 0 && checkWinner('x')) {
-			System.out.println("x Wins!\n");
+			System.out.println("\nx Wins!\n");
 			return true;
 		}
 		if(Character.compare(player, 'o') == 0 && checkWinner('o')) {
-			System.out.println("o Wins!\n");
+			System.out.println("\no Wins!\n");
 			return true;
 		}
 		if(allFill) {
-			System.out.println("Draw\n");
+			System.out.println("\nDraw\n");
 			return true;
 		}
 		return false;
 	}
 	
+	// Checks for a draw
 	public boolean checkIfDraw() {
 		if(Character.compare(board[0][1], ' ') != 0 && Character.compare(board[0][5], ' ') != 0 && Character.compare(board[0][9], ' ') != 0
 				&& Character.compare(board[2][1], ' ') != 0 && Character.compare(board[2][5], ' ') != 0
@@ -87,6 +90,19 @@ public class Board {
 			return true;
 		}
 		return false;
+	}
+	
+	// Wipes the board clean
+	public void wipe() {
+		board[0][1] = ' ';
+		board[0][5] = ' ';
+		board[0][9] = ' ';
+		board[2][1] = ' ';
+		board[2][5] = ' ';
+		board[2][9] = ' ';
+		board[4][1] = ' ';
+		board[4][5] = ' ';
+		board[4][9] = ' ';
 	}
 	
 	public String toString() {
