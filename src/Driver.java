@@ -2,14 +2,14 @@
  *  This is tic tac toe, a game which you can play
  *  
  *  @author Joshua Wiseman
- *  @version 1.0
+ *  @version 1.1
  */
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class Driver {
 
-	// Put code into more methods
+	// TODO Put code into more methods
 	public static void main(String[] args) {
 		Board board = new Board();
 		Scanner scnr = new Scanner(System.in);
@@ -47,7 +47,9 @@ public class Driver {
 				while(true) {
 					System.out.println("Please enter your position which you want to choose.");
 					System.out.println("(enter 1-9)\n");
+					// TODO If user enters a string program will crash
 					pos = scnr.nextInt();
+					
 					
 					// if that position has a space, then enter in the players position
 					if(pos <= 9 && pos >= 1 && !values.containsValue(pos)) {
@@ -60,10 +62,11 @@ public class Driver {
 					}
 				}
 				allFill = board.checkIfDraw();
-				
+				gameEnd = board.checkGame(cpu, allFill);
+				gameEnd = board.checkGame(player, allFill);
 				// Run & change cpu position
 				cpuPos = pos;
-				while(true && !allFill) {
+				while(true && !allFill && !gameEnd) {
 					cpuPos = (int) Math.floor((Math.random() * 9) + 1);
 					if(cpuPos != pos && !values.containsValue(cpuPos)) {
 						board.boardChanger(cpuPos, cpu);
@@ -73,8 +76,7 @@ public class Driver {
 					}
 				}
 				
-				// TODO needs to check draw and ending needs work
-				gameEnd = board.checkGame(player, allFill);
+				// Determines is the game is over and if the user wants to play another game
 				if(gameEnd) {
 					System.out.println("\n" + board + "\n");
 					System.out.println("Do you want to play another game? (enter yes or no)\n");
@@ -82,11 +84,13 @@ public class Driver {
 					// Doesn't work with all strings
 					if(!brake.equals("no")) {
 						board.wipe();
+						values.clear();
 						gameEnd = false;
 					}
 				}
 			}
 		}
 		System.out.println("\nOk, hopefully you had fun!");
+		scnr.close();
 	}
 }
