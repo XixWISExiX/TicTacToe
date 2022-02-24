@@ -2,7 +2,7 @@
  *  This is tic tac toe, a game which you can play
  *  
  *  @author Joshua Wiseman
- *  @version 1.1
+ *  @version 1.2
  */
 import java.util.HashMap;
 import java.util.Scanner;
@@ -61,6 +61,7 @@ public class Driver {
 						System.out.println("That is not a valid position\n");
 					}
 				}
+				// TODO if cpu wins, needs to up date
 				allFill = board.checkIfDraw();
 				gameEnd = board.checkGame(cpu, allFill);
 				gameEnd = board.checkGame(player, allFill);
@@ -75,6 +76,7 @@ public class Driver {
 						break;
 					}
 				}
+				gameEnd = board.checkGame(cpu, allFill);
 				
 				// Determines is the game is over and if the user wants to play another game
 				if(gameEnd) {
