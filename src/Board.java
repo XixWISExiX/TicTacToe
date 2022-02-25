@@ -1,10 +1,21 @@
+
+/**
+ *  This is the Board class which contains many functions to play tic tac toe.
+ *  
+ *  @author Joshua Wiseman
+ *  @version 1.0
+ */
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Board {
 	private char[] boardPos;
 	private char[][] board;
 	
+	/**
+	 *  Creates the tic tac toe board.
+	 */
 	public Board() {
 		boardPos = new char[9];
 		char[][] boardHolder = { {' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' '},
@@ -15,6 +26,12 @@ public class Board {
 		board = boardHolder;
 	}
 	
+	/**
+	 *  Adds the players input to the board.
+	 *  
+	 * @param pos  the position of the given character
+	 * @param player  the character of the player
+	 */
 	public void boardChanger(int pos, char player) {
 		switch (pos) {
 			case 1: board[0][1] = player;
@@ -38,7 +55,11 @@ public class Board {
 		}
 	}
 	
-	// Checks for a winner
+	/**
+	 *  Checks for a winner.
+	 * @param player  the character of the player.
+	 * @return returns true if someone has won the game of tic tac toe.
+	 */
 	public boolean checkWinner(char player) {
 		
 		// Check diagonals
@@ -63,8 +84,14 @@ public class Board {
 		return false;
 	}
 	
-	// Determines if there is a winner and if the game is a draw
-	public boolean checkGame(char player, boolean allFill) {
+	/**
+	 *  Determines if there is a winner and if the game is a draw.
+	 *  
+	 * @param player  the character of the player.
+	 * @param allFill  a variable which is given from checkIfDraw() to determine if the game is a draw or not.
+	 * @return returns true if the game is over.
+	 */
+	public boolean checkGame(char player) {
 		if(Character.compare(player, 'x') == 0 && checkWinner('x')) {
 			System.out.println("\nx Wins!\n");
 			return true;
@@ -73,14 +100,18 @@ public class Board {
 			System.out.println("\no Wins!\n");
 			return true;
 		}
-		if(allFill) {
+		if(checkIfDraw()) {
 			System.out.println("\nDraw\n");
 			return true;
 		}
 		return false;
 	}
 	
-	// Checks for a draw
+	/**
+	 * Checks for a draw.
+	 * 
+	 * @return returns true if the game is a draw.
+	 */
 	public boolean checkIfDraw() {
 		if(Character.compare(board[0][1], ' ') != 0 && Character.compare(board[0][5], ' ') != 0 && Character.compare(board[0][9], ' ') != 0
 				&& Character.compare(board[2][1], ' ') != 0 && Character.compare(board[2][5], ' ') != 0
@@ -92,7 +123,9 @@ public class Board {
 		return false;
 	}
 	
-	// Wipes the board clean
+	/**
+	 *  Wipes the board clean.
+	 */
 	public void wipe() {
 		board[0][1] = ' ';
 		board[0][5] = ' ';
@@ -105,6 +138,9 @@ public class Board {
 		board[4][9] = ' ';
 	}
 	
+	/**
+	 * Prints out the current table to the user.
+	 */
 	public String toString() {
 		String table = "";
 		for(int i = 0; i < board.length; ++i) {

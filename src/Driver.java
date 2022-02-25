@@ -1,8 +1,8 @@
 /**
- *  This is tic tac toe, a game which you can play
+ *  This is tic tac toe, a game which you can play.
  *  
  *  @author Joshua Wiseman
- *  @version 1.2
+ *  @version 1.3
  */
 import java.util.HashMap;
 import java.util.Scanner;
@@ -15,8 +15,8 @@ public class Driver {
 		Scanner scnr = new Scanner(System.in);
 		String brake = "";
 		HashMap<Integer, Integer> values = new HashMap<Integer, Integer>();
-		boolean allFill = false;
-		boolean gameEnd = false;
+		boolean gameEndCpu = false;
+		boolean gameEndPlayer = false;
 		char player = '0';
 		int pos;
 		char cpu;
@@ -36,11 +36,12 @@ public class Driver {
 		else {
 			cpu = 'x';
 		}
+		
 		// Main loop for user interface
 		while(!brake.equals("no")) {
 			
 			// Game Portion (clarify position numbers)
-			while(!gameEnd) {
+			while(!gameEndCpu || !gameEndPlayer) {
 				System.out.println("\n" + board + "\n");
 				
 				// Position phase player 1
@@ -61,13 +62,12 @@ public class Driver {
 						System.out.println("That is not a valid position\n");
 					}
 				}
-				// TODO if cpu wins, needs to up date
-				allFill = board.checkIfDraw();
-				gameEnd = board.checkGame(cpu, allFill);
-				gameEnd = board.checkGame(player, allFill);
+				gameEndCpu = board.checkIfDraw();
+				gameEndCpu = board.checkGame(cpu);
+				gameEndPlayer = board.checkGame(player);
 				// Run & change cpu position
 				cpuPos = pos;
-				while(true && !allFill && !gameEnd) {
+				while(true && !gameEndPlayer) {
 					cpuPos = (int) Math.floor((Math.random() * 9) + 1);
 					if(cpuPos != pos && !values.containsValue(cpuPos)) {
 						board.boardChanger(cpuPos, cpu);
@@ -76,10 +76,10 @@ public class Driver {
 						break;
 					}
 				}
-				gameEnd = board.checkGame(cpu, allFill);
+				gameEndCpu = board.checkGame(cpu);				
 				
 				// Determines is the game is over and if the user wants to play another game
-				if(gameEnd) {
+				if(gameEndCpu || gameEndPlayer) {
 					System.out.println("\n" + board + "\n");
 					System.out.println("Do you want to play another game? (enter yes or no)\n");
 					brake = scnr.next();	
@@ -87,7 +87,8 @@ public class Driver {
 					if(!brake.equals("no")) {
 						board.wipe();
 						values.clear();
-						gameEnd = false;
+						gameEndCpu = false;
+						gameEndPlayer = false;
 					}
 				}
 			}
