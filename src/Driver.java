@@ -11,16 +11,18 @@ public class Driver {
 
 	// TODO make difficulty settings
 	public static void main(String[] args) {
-//		Board board = new Board();
-		EasyDifficulty easy = new EasyDifficulty();
+		Difficulty difficulty = new Difficulty();
 		Scanner scnr = new Scanner(System.in);
 		
 		// Introduction
 		System.out.println("Welcome to tic tac toe!\n");
 		
-//		System.out.println("Do you want to play easy, medium, or hard? (enter easy, medium, or hard)");
+		System.out.println("Do you want to play easy, medium, or hard? (enter easy, medium, or hard)\n");
+		String difficultyInput = scnr.next();
 		
-		easy.easyMode();
+		
+		// Difficulty is not implemented yet
+		difficulty.mode(difficultyInput);
 		
 		
 		System.out.println("\nOk, hopefully you had fun!");

@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class EasyDifficulty extends Board{
+public class Difficulty extends Board{
 	Board board = new Board();
 	Scanner scnr = new Scanner(System.in);
 	String brake = "";
@@ -13,10 +13,10 @@ public class EasyDifficulty extends Board{
 	char cpu;
 	int cpuPos;
 	
-	public EasyDifficulty() {
+	public Difficulty() {
 	}
 	
-	public void easyMode() {
+	public void mode(String difficulty) {
 		// Choose character phase
 		while(Character.compare(player, 'x') != 0 && Character.compare(player, 'o') != 0) {
 			System.out.println("Do you want to be x or o? (enter x or o)\n");
@@ -59,13 +59,42 @@ public class EasyDifficulty extends Board{
 				gameEndPlayer = board.checkGame(player);
 				// Run & change cpu position
 				cpuPos = pos;
-				while(true && !gameEndPlayer) {
-					cpuPos = (int) Math.floor((Math.random() * 9) + 1);
-					if(cpuPos != pos && !values.containsValue(cpuPos)) {
-						board.boardChanger(cpuPos, cpu);
-						pos = cpuPos;
-						values.put(pos, pos);
-						break;
+				// Easy mode
+				if(difficulty.equals("easy")) {
+					while(true && !gameEndPlayer) {
+						cpuPos = (int) Math.floor((Math.random() * 9) + 1);
+						if(cpuPos != pos && !values.containsValue(cpuPos)) {
+							board.boardChanger(cpuPos, cpu);
+							pos = cpuPos;
+							values.put(pos, pos);
+							break;
+						}
+					}
+				}
+				
+				// Medium mode not done
+				if(difficulty.equals("medium")) {
+					while(true && !gameEndPlayer) {
+						cpuPos = (int) Math.floor((Math.random() * 9) + 1);
+						if(cpuPos != pos && !values.containsValue(cpuPos)) {
+							board.boardChanger(cpuPos, cpu);
+							pos = cpuPos;
+							values.put(pos, pos);
+							break;
+						}
+					}
+				}
+				
+				// Hard mode not done
+				if(difficulty.equals("hard")) {
+					while(true && !gameEndPlayer) {
+						cpuPos = (int) Math.floor((Math.random() * 9) + 1);
+						if(cpuPos != pos && !values.containsValue(cpuPos)) {
+							board.boardChanger(cpuPos, cpu);
+							pos = cpuPos;
+							values.put(pos, pos);
+							break;
+						}
 					}
 				}
 				gameEndCpu = board.checkGame(cpu);				
@@ -77,7 +106,6 @@ public class EasyDifficulty extends Board{
 					brake = scnr.next();
 					gameEndCpu = true;
 					gameEndPlayer = true;
-//					System.out.println(brake.equals("no"));
 					// Doesn't work with all strings
 					if(!brake.equals("no")) {
 						board.wipe();
